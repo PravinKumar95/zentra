@@ -14,10 +14,12 @@ import { Pressable, type TextInput, View } from "react-native";
 
 interface SignInFormProps {
   onSignUpPress: () => void;
-  onSignInPress: () => void;
+  onSignInPress: (email: string, password: string) => void;
 }
 
 export function SignInForm({ onSignUpPress, onSignInPress }: SignInFormProps) {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const passwordInputRef = React.useRef<TextInput>(null);
 
   function onEmailSubmitEditing() {
@@ -25,7 +27,7 @@ export function SignInForm({ onSignUpPress, onSignInPress }: SignInFormProps) {
   }
 
   function onSubmit() {
-    onSignInPress();
+    onSignInPress(email, password);
   }
 
   return (
@@ -52,6 +54,8 @@ export function SignInForm({ onSignUpPress, onSignInPress }: SignInFormProps) {
                 onSubmitEditing={onEmailSubmitEditing}
                 returnKeyType="next"
                 submitBehavior="submit"
+                value={email}
+                onChangeText={setEmail}
               />
             </View>
             <View className="gap-1.5">
@@ -61,7 +65,7 @@ export function SignInForm({ onSignUpPress, onSignInPress }: SignInFormProps) {
                   variant="link"
                   size="sm"
                   className="web:h-fit ml-auto h-4 px-1 py-0 sm:h-4"
-                  onPress={onSignUpPress}
+                  onPress={() => {}}
                 >
                   <Text className="font-normal leading-4">
                     Forgot your password?
@@ -74,6 +78,8 @@ export function SignInForm({ onSignUpPress, onSignInPress }: SignInFormProps) {
                 secureTextEntry
                 returnKeyType="send"
                 onSubmitEditing={onSubmit}
+                value={password}
+                onChangeText={setPassword}
               />
             </View>
             <Button className="w-full" onPress={onSubmit}>

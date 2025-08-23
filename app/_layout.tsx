@@ -1,3 +1,4 @@
+import { useAuth } from "@/hooks/useAuth";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { NAV_THEME } from "@/lib/theme";
 import { ThemeProvider } from "@react-navigation/native";
@@ -13,7 +14,8 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
-  const isLoggedIn = false;
+  const { session } = useAuth();
+  const isLoggedIn = session;
 
   if (!loaded) {
     // Async font loading only occurs in development.
