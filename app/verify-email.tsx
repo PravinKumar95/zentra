@@ -1,11 +1,11 @@
-import { SignUpForm } from "@/components/sign-up-form";
+import { VerifyEmailForm } from "@/components/verify-email-form";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "expo-router";
 import { ScrollView, Text, View } from "react-native";
 
-export default function SignUpScreen() {
+export default function VerifyEmail() {
   const router = useRouter();
-  const { signup } = useAuth();
+  const { signin } = useAuth();
   return (
     <ScrollView
       keyboardShouldPersistTaps="handled"
@@ -18,13 +18,7 @@ export default function SignUpScreen() {
             Zentra
           </Text>
         </View>
-        <SignUpForm
-          onSigninPress={() => router.replace("/signin")}
-          onSignupPress={async (email, password) => {
-            await signup(email, password, {});
-            router.replace("/signin");
-          }}
-        />
+        <VerifyEmailForm />
       </View>
     </ScrollView>
   );

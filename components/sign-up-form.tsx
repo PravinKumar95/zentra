@@ -14,15 +14,22 @@ import * as React from "react";
 import { Pressable, TextInput, View } from "react-native";
 
 type SignUpFormProps = {
-  onSignupPress: () => void;
+  onSignupPress: (email: string, password: string, meta: any) => void;
   onSigninPress: () => void;
 };
 
 export function SignUpForm({ onSignupPress, onSigninPress }: SignUpFormProps) {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const passwordInputRef = React.useRef<TextInput>(null);
 
   function onEmailSubmitEditing() {
     passwordInputRef.current?.focus();
+  }
+
+  function onSubmit() {
+    const meta = { timestamp: Date.now() };
+    onSignupPress(email, password, meta);
   }
 
   return (
@@ -49,6 +56,8 @@ export function SignUpForm({ onSignupPress, onSigninPress }: SignUpFormProps) {
                 onSubmitEditing={onEmailSubmitEditing}
                 returnKeyType="next"
                 submitBehavior="submit"
+                value={email}
+                onChangeText={setEmail}
               />
             </View>
             <View className="gap-1.5">
@@ -60,10 +69,12 @@ export function SignUpForm({ onSignupPress, onSigninPress }: SignUpFormProps) {
                 id="password"
                 secureTextEntry
                 returnKeyType="send"
-                onSubmitEditing={onSignupPress}
+                onSubmitEditing={onSubmit}
+                value={password}
+                onChangeText={setPassword}
               />
             </View>
-            <Button className="w-full" onPress={onSignupPress}>
+            <Button className="w-full" onPress={onSubmit}>
               <Text>Continue</Text>
             </Button>
           </View>

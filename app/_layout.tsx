@@ -25,7 +25,7 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={NAV_THEME[colorScheme]}>
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-      <Stack>
+      <Stack screenOptions={{ headerShown: false }}>
         <Stack.Protected guard={isLoggedIn}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack.Protected>
