@@ -20,8 +20,8 @@ export default function SignUpScreen() {
         </View>
         <SignUpForm
           onSigninPress={() => router.replace("/signin")}
-          onSignupPress={async (email, password) => {
-            await signup(email, password, {});
+          onSignupPress={async (email, password, meta) => {
+            await signup(email, password, meta);
             router.replace("/signin");
           }}
         />

@@ -21,14 +21,14 @@ type SignUpFormProps = {
 export function SignUpForm({ onSignupPress, onSigninPress }: SignUpFormProps) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [username, setUsername] = React.useState("");
+  const [company, setCompany] = React.useState("");
   const passwordInputRef = React.useRef<TextInput>(null);
-
-  function onEmailSubmitEditing() {
-    passwordInputRef.current?.focus();
-  }
+  const usernameInputRef = React.useRef<TextInput>(null);
+  const companyInputRef = React.useRef<TextInput>(null);
 
   function onSubmit() {
-    const meta = { timestamp: Date.now() };
+    const meta = { username, company, timestamp: Date.now() };
     onSignupPress(email, password, meta);
   }
 
@@ -53,7 +53,7 @@ export function SignUpForm({ onSignupPress, onSigninPress }: SignUpFormProps) {
                 keyboardType="email-address"
                 autoComplete="email"
                 autoCapitalize="none"
-                onSubmitEditing={onEmailSubmitEditing}
+                onSubmitEditing={() => passwordInputRef.current?.focus()}
                 returnKeyType="next"
                 submitBehavior="submit"
                 value={email}
@@ -69,9 +69,35 @@ export function SignUpForm({ onSignupPress, onSigninPress }: SignUpFormProps) {
                 id="password"
                 secureTextEntry
                 returnKeyType="send"
-                onSubmitEditing={onSubmit}
+                onSubmitEditing={() => usernameInputRef.current?.focus()}
                 value={password}
                 onChangeText={setPassword}
+              />
+            </View>
+            <View className="gap-1.5">
+              <View className="flex-row items-center">
+                <Label htmlFor="username">User Name</Label>
+              </View>
+              <Input
+                ref={usernameInputRef}
+                id="username"
+                returnKeyType="next"
+                onSubmitEditing={() => companyInputRef.current?.focus()}
+                value={username}
+                onChangeText={setUsername}
+              />
+            </View>
+            <View className="gap-1.5">
+              <View className="flex-row items-center">
+                <Label htmlFor="company">Company Name</Label>
+              </View>
+              <Input
+                ref={companyInputRef}
+                id="company"
+                returnKeyType="send"
+                onSubmitEditing={onSubmit}
+                value={company}
+                onChangeText={setCompany}
               />
             </View>
             <Button className="w-full" onPress={onSubmit}>
