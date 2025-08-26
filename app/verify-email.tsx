@@ -1,4 +1,4 @@
-import { VerifyEmailForm } from "@/components/verify-email-form";
+import { VerifyEmailForm } from "@/components/auth/verify-email-form";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "expo-router";
 import { ScrollView, Text, View } from "react-native";

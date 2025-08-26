@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/components/sign-up-form";
+import { SignUpForm } from "@/components/auth/sign-up-form";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "expo-router";
 import { ScrollView, Text, View } from "react-native";
@@ -21,6 +21,7 @@ export default function SignUpScreen() {
         <SignUpForm
           onSigninPress={() => router.replace("/signin")}
           onSignupPress={async (email, password, meta) => {
+            // wait for signup to complete (or throw) so the form can show errors
             await signup(email, password, meta);
             router.replace("/signin");
           }}

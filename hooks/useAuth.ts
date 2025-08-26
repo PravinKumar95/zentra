@@ -1,3 +1,4 @@
+import { friendlyAuthMessage } from "@/lib/auth/errorMessages";
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
 
@@ -35,7 +36,7 @@ export function useAuth() {
       email,
       password,
     });
-    if (error) throw new Error(error.message);
+    if (error) throw new Error(friendlyAuthMessage(error.message));
   };
 
   const signup = async (
@@ -43,13 +44,20 @@ export function useAuth() {
     password: string,
     options: SignUpOptions
   ) => {
-    await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: options,
-      },
-    });
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: options,
+        },
+      });
+      if (error) throw new Error(friendlyAuthMessage(error.message));
+      return data;
+    } catch (err: any) {
+      // Re-throw so callers (forms) can catch and render the message
+      throw new Error(err?.message ?? "Signup failed");
+    }
   };
 
   return { signin, signup, signout, session };
