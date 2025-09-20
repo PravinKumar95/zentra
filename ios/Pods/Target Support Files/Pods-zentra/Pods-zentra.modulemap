@@ -1,0 +1,6 @@
+module Pods_zentra {
+  umbrella header "Pods-zentra-umbrella.h"
+
+  export *
+  module * { export * }
+}
