@@ -43,9 +43,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build with Expo (web)
-        run: |
-          # Prefer an npm script "build:web" if defined, otherwise use npx expo to build web output into ./dist
-          npm run build:web --if-present || npx expo build:web --no-dev --output-dir ./dist
+        run: 
+          npx expo export -p web
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
